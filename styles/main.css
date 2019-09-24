@@ -1,0 +1,144 @@
+* {
+  box-sizing: border-box;
+
+}
+
+header {
+  align-items: top;
+  display: flex;
+  flex-direction: column;
+  width: 50vh;
+  height: 50vh;
+  justify-content: center;
+  margin: 20px;
+  background-color:white;
+  border: 3px
+}
+
+
+ 
+body {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  margin: 0;
+  background-color: rgb(116, 196, 223);
+}
+
+.grid {
+  align-items: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  height: 90%;
+  justify-content: center;
+  max-height: 500px;
+  max-width: 1000px;
+  background-image : url(../background.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.grid div {
+  /* border: 1px solid;  */
+  flex-grow: 1;
+  height: 10%;
+  width: 5%;
+}
+
+.grid div.player {
+  background-image: url(../birthday-cake.png);
+  background-color:  transparent;
+  background-repeat: no-repeat;
+  background-size: 60px;
+  background-position-x: 0;
+  background-position-y: -10px;
+  
+}
+
+.grid div.bullet {
+  background-image: url(../Candle_stylised_blue.svg.png);
+  background-color:  transparent;
+  background-repeat: no-repeat;
+  background-size: 60px;
+  background-position-x: 0;
+  background-position-y: 0;
+  /* background-color: blue; */
+}
+
+.grid div.alian {
+  background-image: url(../gull_PNG53.png);
+  background-color:  transparent;
+  background-repeat: no-repeat;
+  background-size: 50px;
+  background-position-x: 0;
+  background-position-y: 0; 
+  /* background-color:red; */
+  /* opacity: 0.5;
+  z-index: -1; */
+}
+
+
+.grid div.bomb {
+  background-image: url(../PinClipart.com_clip-art-poop_4915309.png); 
+  background-size: 40px;
+  background-position-x: 0;
+  background-position-y: 0; 
+  background-repeat: no-repeat;
+  /* background-color: green; */
+}
+
+
+.grid div.collision {
+  /* background-image: url(../assets/sprite-sheet.png); */
+  background-size: 200px;
+  background-position-x: 0;
+  background-position-y: 0;
+  background-color: yellow;
+}
+
+
+
+
+
+
+
+/* .grid div.player[data-direction="forward"] {
+  transform: scaleX(1)
+}
+
+.grid div.player[data-direction="backward"] {
+  transform: scaleX(-1)
+}
+
+.grid div.player[data-step="0"] {
+  background-position-x: 1080px;
+  background-position-y: 0;
+}
+
+.grid div.player[data-step="1"] {
+  background-position-x: 2160px;
+  background-position-y: 0;
+}
+
+.grid div.player[data-step="2"] {
+  background-position-x: 3240px;
+  background-position-y: 0;
+}
+
+.grid div.player[data-step="3"] {
+  background-position-x: 4320px;
+  background-position-y: 0;
+}
+
+.grid div.player[data-step="4"] {
+  background-position-x: 5400px;
+  background-position-y: 0;
+}
+
+.grid div.player.surprise {
+  background-position-x: 120px;
+  background-position-y: -120px;
+} */

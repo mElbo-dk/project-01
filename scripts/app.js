@@ -9,6 +9,8 @@ const alianIdx = 24
 let shootSpeed = 100
 let alianSpeed = 1000
 let bombSpeed = 1000
+let gameOver = 0
+let gameStart = 0
 
 // function for create Alians on the board
 function createAlians(cells, alianIdx, statusGame) {
@@ -19,6 +21,9 @@ function createAlians(cells, alianIdx, statusGame) {
     if (i === 4 || i === 9) alianIdx += 25
     alianIdx += 3
   }
+  gameStart = 0
+  console.log(gameStart)
+  
 }
 
 function gameWin(cells,alianIdx ,statusGame ) {
@@ -27,13 +32,33 @@ function gameWin(cells,alianIdx ,statusGame ) {
   shootSpeed += 5
   alianSpeed -= 100
   bombSpeed -=  100
-  console.log(alianSpeed,bombSpeed) 
+  // console.log(alianSpeed,bombSpeed) 
   createAlians(cells, alianIdx, statusGame)
 
+}//loos game and prompted Game over empty gameBoard
+function loosGame(cells,statusGame) {
+  
+  for (let i = 0; i < 199; i++) {
+    if (cells[i].classList.contains('alian') === true) {
+      cells[i].classList.remove('alian')
+    }
+  }
+
+  statusGame.textContent = 'Game Over'
+  gameOver = 1
+  console.log('game is over' + gameOver)
+  
+}
+
+function resetGame(statusGame,score){
+  gameOver = 0
+  statusGame.textContent = 'playing'
+  score.textContent = 0
+  gameStart = 1
 }
 
 
-// function for chcek for Alians on the board
+// function for chcek for Alians on the board evry time a bullet hit alian
 function checkForAlians(cells) {  
   for (let i = 0; i < 199; i++) {
     if (cells[i].classList.contains('alian')) return true
@@ -55,10 +80,9 @@ function shoot(cells, bulletIdx, score , statusGame) {
       timerIdShoot = 0
       cells[bulletIdx - width].classList.remove('alian')
       if (!checkForAlians(cells)) {
-
         gameWin(cells,alianIdx,statusGame)
       }
-      console.log('shoot')
+      // console.log('shoot')
       // adding scorepoints to the HTML
       const newScore = parseInt(score.textContent)
       score.textContent = newScore + bulletIdx
@@ -84,8 +108,11 @@ function alian(cells, alianIdx, statusGame) {
     cells[alianIdx].classList.remove('alian')
     alianIdx += 1
     cells[alianIdx].classList.add('alian')
+
     if (cells[alianIdx].classList.value === 'player alian') {
-      statusGame.textContent = 'Game Over'
+      loosGame(cells,statusGame)
+      console.log('game over')
+      // statusGame.textContent = 'Game Over'
       return clearInterval(timerIdAlian)
     }
   }, alianSpeed)
@@ -95,7 +122,7 @@ function alian(cells, alianIdx, statusGame) {
 
 
 // bombs dropping
-function bombDrop(cells, bombIdx,statusGame) {
+function bombDrop(cells, bombIdx, statusGame) {
   if (timerIdBomb) return
   timerIdBomb = setInterval(() => {
     cells[bombIdx].classList.remove('bomb')
@@ -108,7 +135,8 @@ function bombDrop(cells, bombIdx,statusGame) {
       clearInterval(timerIdBomb)
       timerIdBomb = 0
       // adding game Over to the HTML
-      statusGame.textContent = 'Game Over'
+      loosGame(cells,statusGame)
+      // statusGame.textContent = 'Game Over'
       cells[bombIdx - width].classList.remove('player')
     } else {
       // console.log(bombIdx)
@@ -129,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   score.textContent = 0
   // text for the HTML 
   const statusGame = document.querySelector('.status')
-  statusGame.textContent = 'playing'
+  
 
 
   // setting the cells array and putting player and alian on the board 
@@ -156,15 +184,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // create the alians on the board if pressed Enter
     // createAlians(cells, alianIdx, statusGame)
     switch (e.keyCode) {
-      case 37: if (x > 0) playerIdx -= 1
+      case 37: if (x > 0 && gameOver === 0) playerIdx -= 1
         break
-      case 39: if (x < width - 1) playerIdx += 1
+      case 39: if (x < width - 1 && gameOver === 0 ) playerIdx += 1
         break
-      case 32: shoot(cells, playerIdx, score)
+      case 32: if (!gameOver) shoot(cells, playerIdx, score)
         break
-      case 13: createAlians(cells, alianIdx, statusGame)
+      case 13: if (gameStart === 1)createAlians(cells, alianIdx, statusGame)
         break
-      case 27: 
+      case 27: resetGame(statusGame,score)
         console.log(e.keyCode)
         break
     }

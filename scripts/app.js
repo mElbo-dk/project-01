@@ -12,6 +12,8 @@ let bombSpeed = 1000
 let gameOver = 0
 let gameStart = 0
 let statusGame = null
+let loosgameCounter = 3
+let lives = 0
 let noSound = 1
 
 
@@ -46,7 +48,7 @@ function playSound(sound) {
   } else {
     document.getElementById(sound).play()
   }
-  
+
 }
 
 
@@ -73,14 +75,25 @@ function checkForAlians() {
 //loos game and prompted Game over  + empty gameBoard--------------------------------------------------------
 function loosGame() {
 
-  for (let i = 0; i < 199; i++) {
-    if (cells[i].classList.contains('alian') === true) {
-      cells[i].classList.remove('alian')
+  if (loosgameCounter > 1) {
+
+    loosgameCounter = loosgameCounter - 1
+    lives.textContent =  loosgameCounter + ' lives'
+
+  } else {
+
+
+    for (let i = 0; i < 199; i++) {
+      if (cells[i].classList.contains('alian') === true) {
+        cells[i].classList.remove('alian')
+      }
     }
+
+    gameOver = 1
+    document.getElementById('audioGameOver').play()
+    statusGame.textContent = 'Game Over press \'ESC\'to start playing!'
   }
-  gameOver = 1
-  document.getElementById('audioGameOver').play()
-  statusGame.textContent = 'Game Over press \'ESC\'to start playing!'
+
 }
 
 
@@ -90,8 +103,8 @@ function resetGame() {
   gameOver = 0
   statusGame.textContent = 'Press \'Enter\' to start the game!'
   score.textContent = 0 + ' Points '
-  gameStart = 1 
-  
+  gameStart = 1
+
 }
 
 // bullet fired 
@@ -127,7 +140,7 @@ function shoot(bulletIdx) {
 function alian(alianIdx) {
   // console.log('alian' + statusGame)
   const timerIdAlian = setInterval(() => {
-    
+
     if (cells[alianIdx].classList.value !== 'alian') {
       return clearInterval(timerIdAlian)
     }
@@ -136,7 +149,7 @@ function alian(alianIdx) {
       bombDrop(alianIdx + 2)
     }
     cells[alianIdx].classList.remove('alian')
-    alianIdx += 1 
+    alianIdx += 1
     cells[alianIdx].classList.add('alian')
 
     if (cells[alianIdx].classList.value === 'player alian') {
@@ -153,7 +166,7 @@ function bombDrop(bombIdx) {
   if (timerIdBomb) return
   timerIdBomb = setInterval(() => {
     cells[bombIdx].classList.remove('bomb')
-    
+
     if (bombIdx >= width * 9) {
       // console.log(bombIdx)
       clearInterval(timerIdBomb)
@@ -163,7 +176,7 @@ function bombDrop(bombIdx) {
       clearInterval(timerIdBomb)
       timerIdBomb = 0
       // adding game Over to the HTML
-      
+
       loosGame(cells)
       // statusGame.textContent = 'Game Over'
       cells[bombIdx - width].classList.remove('player')
@@ -184,20 +197,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // // set score board value  
   score = document.querySelector('.score')
-  score.textContent = 0
-  
+  score.textContent = 0 + ' Points'
+
   // text for the HTML 
   statusGame = document.querySelector('.status')
   statusGame.textContent = 'Press \'ESC\' to Reset'
   
+  // lives for the HTML 
+  lives = document.querySelector('.lives')
+  lives.textContent =  loosgameCounter + ' cakes'
+
   // create game board
   for (let i = 0; i < width * height; i++) {
     const cell = document.createElement('DIV')
     grid.appendChild(cell)
     cells.push(cell)
   }
-  
-  
+
+
 
   // set the player on the board
   cells[playerIdx].classList.add('player')
@@ -211,13 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // create the alians on the board if pressed Enter
     // createAlians(cells, alianIdx, statusGame)
     switch (e.keyCode) {
-      case 37: if (x > 0 && gameOver === 0) playerIdx -= 1         
+      case 37: if (x > 0 && gameOver === 0) playerIdx -= 1
         break
       case 39: if (x < width - 1 && gameOver === 0) playerIdx += 1
         break
       case 32: if (!gameOver) shoot(playerIdx)
         break
-      case 13: if (gameStart === 1) createAlians(alianIdx)    
+      case 13: if (gameStart === 1) createAlians(alianIdx)
         break
       case 27: resetGame()
         console.log(e.keyCode)
@@ -228,8 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
         break
     }
     cells[playerIdx].classList.add('player')
-    
-    
+
+
   })
   console.log('nosound ' + noSound)
 })

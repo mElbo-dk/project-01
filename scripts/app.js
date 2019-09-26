@@ -27,7 +27,7 @@ let grid = null
 function createAlians(alianIdx) {
   // create 15 alians with two row and one column between
   playSound('audioSeagul')
-  statusGame.textContent = ' a to turn on sound, s to turn off sound'
+  statusGame.textContent = ' \'a\' to turn on sound, \'s\' to turn off sound'
   for (let i = 0; i < 15; i++) {
     cells[alianIdx].classList.add('alian')
     alian(alianIdx)
@@ -39,7 +39,7 @@ function createAlians(alianIdx) {
 }
 
 
-// Function to play sounds
+// Function to play sounds-------------------------------------------------------------------------------
 function playSound(sound) {
   if (noSound === 1) {
     return
@@ -57,12 +57,11 @@ function gameWin(alianIdx) {
   shootSpeed += 5
   alianSpeed -= 100
   bombSpeed -= 100
-  // console.log(alianSpeed,bombSpeed) 
   createAlians(alianIdx)
 
 }
 
-// function for chcek for Alians on the board evry time a bullet hit alian
+// function for chcek for Alians on the board evry time a bullet hit alian----------------------------------
 function checkForAlians() {
   for (let i = 0; i < 199; i++) {
     if (cells[i].classList.contains('alian')) return true
@@ -71,7 +70,7 @@ function checkForAlians() {
 }
 
 
-//loos game and prompted Game over empty gameBoard--------------------------------------------------------
+//loos game and prompted Game over  + empty gameBoard--------------------------------------------------------
 function loosGame() {
 
   for (let i = 0; i < 199; i++) {
@@ -110,17 +109,13 @@ function shoot(bulletIdx) {
       timerIdShoot = 0
       cells[bulletIdx - width].classList.remove('alian')
       // audio for hitting target
-      // document.getElementById('audioHitTarget').play()
       playSound('audioHitTarget')
       if (!checkForAlians(cells)) {
         gameWin(alianIdx)
       }
-      
       // adding scorepoints to the HTML
       const newScore = parseInt(score.textContent)
       score.textContent = newScore + bulletIdx + ' Points '
-
-
     } else {
       bulletIdx -= width
       cells[bulletIdx].classList.add('bullet')
@@ -138,19 +133,14 @@ function alian(alianIdx) {
     }
     // drops bombs if alian reach these 
     if (alianIdx >= width * 6 || alianIdx >= width * 7) {
-
       bombDrop(alianIdx + 2)
-    // console.log(cells[alianIdx - width].classList.value)
     }
     cells[alianIdx].classList.remove('alian')
-    alianIdx += 1
-    
+    alianIdx += 1 
     cells[alianIdx].classList.add('alian')
 
     if (cells[alianIdx].classList.value === 'player alian') {
       loosGame(alianIdx)
-      // console.log('game over')
-
       return clearInterval(timerIdAlian)
     }
   }, alianSpeed)
@@ -186,7 +176,7 @@ function bombDrop(bombIdx) {
   }, bombSpeed)
 }
 
-
+// ---------------------------------------------------------------------------------------------------------------
 // DOM is loaded
 // Declare variables for DOM
 document.addEventListener('DOMContentLoaded', () => {
@@ -212,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // set the player on the board
   cells[playerIdx].classList.add('player')
 
-  // controls on key down
+  // controls on key down -----------------------------------------------------------------------------------
   document.addEventListener('keydown', (e) => {
 
     cells[playerIdx].classList.remove('player')

@@ -14,8 +14,6 @@
 }
 
 
-
-
 .scoreBoard {
   /* position: absolute; */
   z-index: 2;
@@ -59,7 +57,7 @@
   justify-content: center;
   max-height: 650px;
   max-width: 1000px;
-  background-image : url(../background.jpeg);
+  background-image : url(../grafics/background.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -72,7 +70,7 @@
 }
 
 .grid div.player {
-  background-image: url(../birthday-cake.png);
+  background-image: url(../grafics/birthday-cake.png);
   background-color:  transparent;
   background-repeat: no-repeat;
   background-size: 50px;
@@ -82,35 +80,33 @@
 }
 
 .grid div.bullet {
-  background-image: url(../Candle_stylised_blue.svg.png);
+  background-image: url(../grafics/Candle_stylised_blue.svg.png);
   background-color:  transparent;
   background-repeat: no-repeat;
   background-size: 60px;
   background-position-x: 0;
   background-position-y: 0;
-  /* background-color: blue; */
+
 }
 
 .grid div.alian {
-  background-image: url(../gull_PNG53.png);
+  background-image: url(../grafics/gull_PNG53.png);
   background-color:  transparent;
   background-repeat: no-repeat;
   background-size: 50px;
   background-position-x: 0;
   background-position-y: 0; 
-  /* background-color:red; */
-  /* opacity: 0.5;
-  z-index: -1; */
+
 }
 
 
 .grid div.bomb {
-  background-image: url(../PinClipart.com_clip-art-poop_4915309.png); 
+  background-image: url(../grafics/PinClipart.com_clip-art-poop_4915309.png); 
   background-size: 40px;
   background-position-x: 0;
   background-position-y: 0; 
   background-repeat: no-repeat;
-  /* background-color: green; */
+  
 }
 
 
@@ -121,47 +117,3 @@
   background-position-y: 0;
   background-color: yellow;
 }
-
-
-
-
-
-
-
-/* .grid div.player[data-direction="forward"] {
-  transform: scaleX(1)
-}
-
-.grid div.player[data-direction="backward"] {
-  transform: scaleX(-1)
-}
-
-.grid div.player[data-step="0"] {
-  background-position-x: 1080px;
-  background-position-y: 0;
-}
-
-.grid div.player[data-step="1"] {
-  background-position-x: 2160px;
-  background-position-y: 0;
-}
-
-.grid div.player[data-step="2"] {
-  background-position-x: 3240px;
-  background-position-y: 0;
-}
-
-.grid div.player[data-step="3"] {
-  background-position-x: 4320px;
-  background-position-y: 0;
-}
-
-.grid div.player[data-step="4"] {
-  background-position-x: 5400px;
-  background-position-y: 0;
-}
-
-.grid div.player.surprise {
-  background-position-x: 120px;
-  background-position-y: -120px;
-} */

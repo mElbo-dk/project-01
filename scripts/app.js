@@ -33,7 +33,7 @@ function createAlians(alianIdx) {
     return
   }
   playSound('audioReloadGame')
-  statusGame.textContent = ' \'a\' to turn on sound, \'s\' to turn off sound'
+  statusGame.textContent = ' \'s\' to turn on sound, \'a\' to turn off sound'
   for (let i = 0; i < 15; i++) {
     cells[alianIdx].classList.add('alian')
     alian(alianIdx)

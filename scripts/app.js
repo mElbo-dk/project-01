@@ -44,7 +44,7 @@ function createAlians(alianIdx) {
   if (gameOver === true){
     score.textContent = 0 + ' Points '
   }
-
+  
   gameOver = false
   gameStart = false
   lives.textContent =  `${loosgameCounter} Lives`
@@ -59,7 +59,7 @@ function playSound(sound) {
   } else {
     document.getElementById(sound).play()
   }
-
+  
 }
 
 
@@ -72,7 +72,7 @@ function gameWin(alianIdx) {
   alianSpeed -= 100
   bombSpeed -= 100
   createAlians(alianIdx)
-
+  
 }
 
 // function for chcek for Alians on the board evry time a bullet hit alian----------------------------------
@@ -100,9 +100,20 @@ function loosGame() {
     gameOver = true
     playSound('audioGameOver')
     statusGame.textContent = 'Game Over press \'Enter\'to start playing!'
+    shootSpeed = 100
+    alianSpeed = 1000
+    bombSpeed = 1000
+    
+    
   }
   gameStart = true
 }
+
+
+
+
+
+
 
 // bullet fired 
 function shoot(bulletIdx) {
@@ -136,7 +147,7 @@ function shoot(bulletIdx) {
 // alien to be moving right 
 function alian(alianIdx) {
   const timerIdAlian = setInterval(() => {
-    console.log('alian' + timerIdAlian)
+    //console.log('alian' + timerIdAlian)
     if (cells[alianIdx].classList.value !== 'alian') {
       return clearInterval(timerIdAlian)
     }
@@ -237,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     cells[playerIdx].classList.add('player')
 
-
+    console.log('bom' + bombSpeed)
   })
   console.log('nosound ' + noSound)
 })

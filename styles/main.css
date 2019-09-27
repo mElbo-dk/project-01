@@ -1,12 +1,20 @@
 * {
   box-sizing: border-box;
-
 }
+
+button {
+  font-size: 20px;
+  border: 0.7px solid blue;
+  font-family: 'Cute Font', cursive;
+  margin: 0 30px;
+}
+
 .body {
   display: flex;
   height: 100vh;
   background-color: rgb(116, 196, 223);
 }
+
 
 .main {
   display: flex;
@@ -27,7 +35,7 @@
   border: 2px solid white;
   font-family: 'Cute Font', cursive;
   color: white;
-  font-size: 40px;
+  font-size: 200%;
   }
 
 
@@ -44,7 +52,7 @@
 
 .body {
   height: 96vh;
-  background-color: rgb(116, 196, 223);
+  background-color: rgb(12, 98, 104);
 }
 
 .grid {
@@ -54,12 +62,15 @@
   flex-grow: 1;
   flex-wrap: wrap;
   height: 100%;
-  justify-content: center;
+  justify-content: cover;
   max-height: 650px;
   max-width: 1000px;
-  background-image : url(../grafics/background.jpeg);
+  background-image : url(../graphics/duke-nukem-back.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  /* background-position-x: -20px;
+  background-position-y: -10px; */
+  background-color: black;
 }
 
 .grid div {
@@ -70,17 +81,17 @@
 }
 
 .grid div.player {
-  background-image: url(../grafics/birthday-cake.png);
-  background-color:  transparent;
+  background-image: url(../graphics/duke-smoking-gun.png);
+  background-color: transparent;
   background-repeat: no-repeat;
   background-size: 50px;
   background-position-x: 0;
-  background-position-y: -10px;
+  background-position-y: 0px;
   
 }
 
 .grid div.bullet {
-  background-image: url(../grafics/Candle_stylised_blue.svg.png);
+  background-image: url(../graphics/Candle_stylised_blue.svg.png);
   background-color:  transparent;
   background-repeat: no-repeat;
   background-size: 60px;
@@ -90,18 +101,22 @@
 }
 
 .grid div.alian {
-  background-image: url(../grafics/gull_PNG53.png);
-  background-color:  transparent;
+  background-image: url(../graphics/monster.png);
+  border-radius: 50%;
+  background-color:  rgba(255,255,255, 0.15);
+  box-shadow: 0px 10px 20px rgba(255,255,255, 0.3);
   background-repeat: no-repeat;
   background-size: 50px;
-  background-position-x: 0;
-  background-position-y: 0; 
+  background-position: center;
+  /* -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate; */
 
 }
 
 
 .grid div.bomb {
-  background-image: url(../grafics/PinClipart.com_clip-art-poop_4915309.png); 
+  background-image: url(../graphics/granate.png); 
   background-size: 40px;
   background-position-x: 0;
   background-position-y: 0; 

@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Seagull Wars!</title>
+  <title>Duke Nuke Game!</title>
   <link rel="stylesheet" href="styles/main.css">
   <script src="scripts/app.js" charset="utf-8"></script>
 </head>
@@ -20,8 +20,11 @@
   <main>
     <div class="grid-wrapper">
         
+       
+        <!-- <button class="How To play">How To play</button>   -->
       <div class="scoreBoard">
         <div class="score"></div>
+        <button onclick=" location.href = 'https://en.wikipedia.org/wiki/Duke_Nukem'" target="_blank">About</button>
         <div class="status"></div>
         <div class="lives"></div>
       </div>
@@ -38,19 +41,19 @@
 
     <!-- audio files for gameplay -->
     <audio id="audioShoot" controls style="display:none">
-      <source src="sounds/Arrow+Swoosh+1.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+      <source src="sounds/gunShut.mp3" type="audio/mpeg"> Your browser does not support the audio element.
     </audio>
     <audio id="audioHitTarget" controls style="display:none">
-      <source src="sounds/HitBirdSound.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+      <source src="sounds/Wookie Chewbacca Impression-SoundBible.com-761302891.mp3" type="audio/mpeg"> Your browser does not support the audio element.
     </audio>
-    <audio id="audioSeagul" controls style="display:none">
-      <source src="sounds/HerringGull.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+    <audio id="audioReloadGame" controls style="display:none">
+      <source src="sounds/ready_4_action.wav" type="audio/mpeg"> Your browser does not support the audio element.
     </audio>
     <audio id="audioGameOver" controls style="display:none">
-      <source src="sounds/oh-shit_4.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+      <source src="sounds/game_over.wav" type="audio/mpeg"> Your browser does not support the audio element.
     </audio>
     <audio id="audioBumbDrop" controls style="display:none">
-        <source src="sounds/birdPoop.mp3" type="audio/mpeg"> Your browser does not support the audio element.
+        <source src="sounds/annoying.wav" type="audio/mpeg"> Your browser does not support the audio element.
       </audio>
   
 </main>

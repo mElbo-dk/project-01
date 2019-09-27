@@ -9,8 +9,8 @@ const alianIdx = 24
 let shootSpeed = 100
 let alianSpeed = 1000
 let bombSpeed = 1000
-let gameOver = 0
-let gameStart = 0
+let gameOver = false
+let gameStart = true
 let statusGame = null
 let loosgameCounter = 3
 let lives = 0
@@ -28,7 +28,11 @@ let grid = null
 // function for create Alians on the board--------------------------------------------------------------
 function createAlians(alianIdx) {
   // create 15 alians with two row and one column between
-  playSound('audioSeagul')
+  if (checkForAlians(cells)) {
+    console.log('aliancheck')
+    return
+  }
+  playSound('audioReloadGame')
   statusGame.textContent = ' \'a\' to turn on sound, \'s\' to turn off sound'
   for (let i = 0; i < 15; i++) {
     cells[alianIdx].classList.add('alian')
@@ -36,14 +40,21 @@ function createAlians(alianIdx) {
     if (i === 4 || i === 9) alianIdx += 25
     alianIdx += 3
   }
-  gameStart = 0
+  loosgameCounter = 3
+  if (gameOver === true){
+    score.textContent = 0 + ' Points '
+  }
 
+  gameOver = false
+  gameStart = false
+  lives.textContent =  `${loosgameCounter} Lives`
+  
 }
 
 
 // Function to play sounds-------------------------------------------------------------------------------
 function playSound(sound) {
-  if (noSound === 1) {
+  if (noSound === false) {
     return
   } else {
     document.getElementById(sound).play()
@@ -54,6 +65,7 @@ function playSound(sound) {
 
 // starts a new gameBoard when all alians are shut-------------------------------------------------------
 function gameWin(alianIdx) {
+  
   // alert('You are the winner')
   alianIdx = 24
   shootSpeed += 5
@@ -74,37 +86,22 @@ function checkForAlians() {
 
 //loos game and prompted Game over  + empty gameBoard--------------------------------------------------------
 function loosGame() {
-
   if (loosgameCounter > 1) {
-
     loosgameCounter = loosgameCounter - 1
     lives.textContent =  loosgameCounter + ' lives'
-
   } else {
-
-
     for (let i = 0; i < 199; i++) {
       if (cells[i].classList.contains('alian') === true) {
         cells[i].classList.remove('alian')
       }
     }
-
-    gameOver = 1
-    document.getElementById('audioGameOver').play()
-    statusGame.textContent = 'Game Over press \'ESC\'to start playing!'
+    
+    lives.textContent =  0 + ' lives'  
+    gameOver = true
+    playSound('audioGameOver')
+    statusGame.textContent = 'Game Over press \'Enter\'to start playing!'
   }
-
-}
-
-
-
-// reset game when lost and gameOver showing------------------------------------------------------------------
-function resetGame() {
-  gameOver = 0
-  statusGame.textContent = 'Press \'Enter\' to start the game!'
-  score.textContent = 0 + ' Points '
-  gameStart = 1
-
+  gameStart = true
 }
 
 // bullet fired 
@@ -138,9 +135,8 @@ function shoot(bulletIdx) {
 
 // alien to be moving right 
 function alian(alianIdx) {
-  // console.log('alian' + statusGame)
   const timerIdAlian = setInterval(() => {
-
+    console.log('alian' + timerIdAlian)
     if (cells[alianIdx].classList.value !== 'alian') {
       return clearInterval(timerIdAlian)
     }
@@ -166,25 +162,23 @@ function bombDrop(bombIdx) {
   if (timerIdBomb) return
   timerIdBomb = setInterval(() => {
     cells[bombIdx].classList.remove('bomb')
-
     if (bombIdx >= width * 9) {
       // console.log(bombIdx)
       clearInterval(timerIdBomb)
       timerIdBomb = 0
     } else if (cells[bombIdx + width].classList.value === 'player') {
       // console.log('bomb')
+      playSound('audioBumbDrop')
       clearInterval(timerIdBomb)
       timerIdBomb = 0
       // adding game Over to the HTML
-
       loosGame(cells)
       // statusGame.textContent = 'Game Over'
       cells[bombIdx - width].classList.remove('player')
     } else {
-      // console.log(bombIdx)
       bombIdx += width
       cells[bombIdx].classList.add('bomb')
-      playSound('audioBumbDrop')
+      
     }
   }, bombSpeed)
 }
@@ -201,11 +195,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // text for the HTML 
   statusGame = document.querySelector('.status')
-  statusGame.textContent = 'Press \'ESC\' to Reset'
+  statusGame.textContent = 'Press \'Enter\' to Start'
   
   // lives for the HTML 
   lives = document.querySelector('.lives')
-  lives.textContent =  loosgameCounter + ' cakes'
+  lives.textContent =  loosgameCounter + ' lives'
 
   // create game board
   for (let i = 0; i < width * height; i++) {
@@ -228,20 +222,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // create the alians on the board if pressed Enter
     // createAlians(cells, alianIdx, statusGame)
     switch (e.keyCode) {
-      case 37: if (x > 0 && gameOver === 0) playerIdx -= 1
+      case 37: if (x > 0 && gameOver === false) playerIdx -= 1
         break
-      case 39: if (x < width - 1 && gameOver === 0) playerIdx += 1
+      case 39: if (x < width - 1 && gameOver === false) playerIdx += 1
         break
       case 32: if (!gameOver) shoot(playerIdx)
         break
-      case 13: if (gameStart === 1) createAlians(alianIdx)
+      case 13: if (gameStart === true) createAlians(alianIdx)
         break
-      case 27: resetGame()
-        console.log(e.keyCode)
+      case 83: noSound = true // sound off with s
         break
-      case 83: noSound = 1 // sound off with s
-        break
-      case 65: noSound = 0 // sound off with a
+      case 65: noSound = false // sound off with a
         break
     }
     cells[playerIdx].classList.add('player')

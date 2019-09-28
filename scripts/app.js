@@ -5,9 +5,9 @@ const height = 10
 // timer Id's for the global scope--------------------------------------------------------------------
 let timerIdShoot = null
 let timerIdBomb = null
-const alianIdx = 24
+const alienIdx = 24
 let shootSpeed = 100
-let alianSpeed = 1000
+let alienSpeed = 1000
 let bombSpeed = 1000
 let gameOver = false
 let gameStart = true
@@ -18,27 +18,27 @@ let noSound = 1
 
 
 
-// setting the cells array and putting player and alian on the board -----------------------------------
+// setting the cells array and putting player and alien on the board -----------------------------------
 const cells = []
 let playerIdx = 190
 let score = 0
 let grid = null
 
 
-// function for create Alians on the board--------------------------------------------------------------
-function createAlians(alianIdx) {
-  // create 15 alians with two row and one column between
-  if (checkForAlians(cells)) {
-    console.log('aliancheck')
+// function for create aliens on the board--------------------------------------------------------------
+function createaliens(alienIdx) {
+  // create 15 aliens with two row and one column between
+  if (checkForaliens(cells)) {
+    console.log('aliencheck')
     return
   }
   playSound('audioReloadGame')
   statusGame.textContent = ' \'s\' to turn on sound, \'a\' to turn off sound'
   for (let i = 0; i < 15; i++) {
-    cells[alianIdx].classList.add('alian')
-    alian(alianIdx)
-    if (i === 4 || i === 9) alianIdx += 25
-    alianIdx += 3
+    cells[alienIdx].classList.add('alien')
+    alien(alienIdx)
+    if (i === 4 || i === 9) alienIdx += 25
+    alienIdx += 3
   }
   loosgameCounter = 3
   if (gameOver === true){
@@ -63,22 +63,22 @@ function playSound(sound) {
 }
 
 
-// starts a new gameBoard when all alians are shut-------------------------------------------------------
-function gameWin(alianIdx) {
+// starts a new gameBoard when all aliens are shut-------------------------------------------------------
+function gameWin(alienIdx) {
   
   // alert('You are the winner')
-  alianIdx = 24
+  alienIdx = 24
   shootSpeed += 5
-  alianSpeed -= 100
+  alienSpeed -= 100
   bombSpeed -= 100
-  createAlians(alianIdx)
+  createaliens(alienIdx)
   
 }
 
-// function for chcek for Alians on the board evry time a bullet hit alian----------------------------------
-function checkForAlians() {
+// function for chcek for aliens on the board evry time a bullet hit alien----------------------------------
+function checkForaliens() {
   for (let i = 0; i < 199; i++) {
-    if (cells[i].classList.contains('alian')) return true
+    if (cells[i].classList.contains('alien')) return true
   }
   return false
 }
@@ -91,8 +91,8 @@ function loosGame() {
     lives.textContent =  loosgameCounter + ' lives'
   } else {
     for (let i = 0; i < 199; i++) {
-      if (cells[i].classList.contains('alian') === true) {
-        cells[i].classList.remove('alian')
+      if (cells[i].classList.contains('alien') === true) {
+        cells[i].classList.remove('alien')
       }
     }
     
@@ -101,7 +101,7 @@ function loosGame() {
     playSound('audioGameOver')
     statusGame.textContent = 'Game Over press \'Enter\'to start playing!'
     shootSpeed = 100
-    alianSpeed = 1000
+    alienSpeed = 1000
     bombSpeed = 1000
     
     
@@ -125,14 +125,14 @@ function shoot(bulletIdx) {
     if (bulletIdx <= width) {
       clearInterval(timerIdShoot)
       timerIdShoot = 0
-    } else if (cells[bulletIdx - width].classList.value === 'alian') {
+    } else if (cells[bulletIdx - width].classList.value === 'alien') {
       clearInterval(timerIdShoot)
       timerIdShoot = 0
-      cells[bulletIdx - width].classList.remove('alian')
+      cells[bulletIdx - width].classList.remove('alien')
       // audio for hitting target
       playSound('audioHitTarget')
-      if (!checkForAlians(cells)) {
-        gameWin(alianIdx)
+      if (!checkForaliens(cells)) {
+        gameWin(alienIdx)
       }
       // adding scorepoints to the HTML
       const newScore = parseInt(score.textContent)
@@ -145,25 +145,29 @@ function shoot(bulletIdx) {
 }
 
 // alien to be moving right 
-function alian(alianIdx) {
-  const timerIdAlian = setInterval(() => {
-    //console.log('alian' + timerIdAlian)
-    if (cells[alianIdx].classList.value !== 'alian') {
-      return clearInterval(timerIdAlian)
+function alien(alienIdx) {
+  const timerIdalien = setInterval(() => {
+    //console.log('alien' + timerIdalien)
+    if (cells[alienIdx].classList.value !== 'alien') {
+      cells[alienIdx].classList.remove('alien')
+      return clearInterval(timerIdalien)
     }
-    // drops bombs if alian reach these 
-    if (alianIdx >= width * 6 || alianIdx >= width * 7) {
-      bombDrop(alianIdx + 2)
+    // drops bombs if alien reach these 
+    if (alienIdx >= width * 6 || alienIdx >= width * 7) {
+      bombDrop(alienIdx + 2)
     }
-    cells[alianIdx].classList.remove('alian')
-    alianIdx += 1
-    cells[alianIdx].classList.add('alian')
+    cells[alienIdx].classList.remove('alien')
+    alienIdx += 1
+    cells[alienIdx].classList.add('alien')
 
-    if (cells[alianIdx].classList.value === 'player alian') {
-      loosGame(alianIdx)
-      return clearInterval(timerIdAlian)
+    if (cells[alienIdx].classList.value === 'player alien') {
+      console.log(cells[alienIdx].classList.value)
+      
+      cells[alienIdx].classList.remove('alien')
+      loosGame(alienIdx)
+      return clearInterval(timerIdalien)
     }
-  }, alianSpeed)
+  }, alienSpeed)
 }
 
 
@@ -230,8 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cells[playerIdx].classList.remove('player')
     const x = playerIdx % width
 
-    // create the alians on the board if pressed Enter
-    // createAlians(cells, alianIdx, statusGame)
+    // create the aliens on the board if pressed Enter
+    // createaliens(cells, alienIdx, statusGame)
     switch (e.keyCode) {
       case 37: if (x > 0 && gameOver === false) playerIdx -= 1
         break
@@ -239,7 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         break
       case 32: if (!gameOver) shoot(playerIdx)
         break
-      case 13: if (gameStart === true) createAlians(alianIdx)
+      case 13: if (gameStart === true) createaliens(alienIdx)
         break
       case 83: noSound = true // sound off with s
         break

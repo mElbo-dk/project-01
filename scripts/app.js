@@ -75,7 +75,7 @@ function gameWin(alienIdx) {
   
 }
 
-// function for chcek for aliens on the board evry time a bullet hit alien----------------------------------
+// function for check for aliens on the board evry time a bullet hit alien----------------------------------
 function checkForaliens() {
   for (let i = 0; i < 199; i++) {
     if (cells[i].classList.contains('alien')) return true
